@@ -1,123 +1,991 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Premium App</title>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<title>BGMI Admin Panel</title>
+
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
 
 <style>
 
-/* ==============================
-   GLOBAL STYLE
-============================== */
+
+*{
+
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Poppins,sans-serif;
+
+}
+
 
 body{
-  margin:0;
-  font-family:Arial, sans-serif;
-  background:linear-gradient(180deg,#020617,#0f172a);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  height:100vh;
-  color:white;
-  overflow:hidden;
+
+background:#050B18;
+color:white;
+min-height:100vh;
+
 }
 
-/* ==============================
-   SPLASH SCREEN
-============================== */
 
-.splash{
-  text-align:center;
-  animation:fadeIn 1s ease;
+
+body::before{
+
+content:"";
+
+position:fixed;
+
+inset:0;
+
+background:
+radial-gradient(circle at top left,#22c55e33,transparent 35%),
+radial-gradient(circle at top right,#2563eb33,transparent 35%),
+#050B18;
+
+z-index:-1;
+
 }
 
-.logo{
-  font-size:28px;
-  font-weight:bold;
-  color:#22c55e;
-  margin-bottom:10px;
+
+
+.app{
+
+max-width:500px;
+
+margin:auto;
+
+padding:18px;
+
+padding-bottom:40px;
+
 }
 
-.tagline{
-  font-size:14px;
-  opacity:.7;
+
+
+/* HEADER */
+
+
+.header{
+
+background:#111827;
+
+border-radius:22px;
+
+padding:20px;
+
+border:1px solid #ffffff15;
+
+margin-bottom:20px;
+
 }
 
-/* Loading Animation */
 
-.loader{
-  margin-top:25px;
-  border:4px solid #1e293b;
-  border-top:4px solid #22c55e;
-  border-radius:50%;
-  width:40px;
-  height:40px;
-  animation:spin 1s linear infinite;
-  margin-left:auto;
-  margin-right:auto;
+.header h1{
+
+font-size:25px;
+
+font-weight:800;
+
+color:#22c55e;
+
 }
 
-@keyframes spin{
-  0%{transform:rotate(0)}
-  100%{transform:rotate(360deg)}
+
+.header p{
+
+font-size:13px;
+
+color:#94a3b8;
+
+margin-top:5px;
+
 }
 
-@keyframes fadeIn{
-  from{opacity:0;transform:translateY(10px);}
-  to{opacity:1;transform:translateY(0);}
+
+
+
+/* STAT GRID */
+
+
+.stats{
+
+display:grid;
+
+grid-template-columns:1fr 1fr;
+
+gap:15px;
+
 }
+
+
+
+.statCard{
+
+background:#111827;
+
+border-radius:20px;
+
+padding:18px;
+
+border:1px solid #ffffff10;
+
+}
+
+
+
+.icon{
+
+font-size:28px;
+
+}
+
+
+.statTitle{
+
+font-size:13px;
+
+color:#94a3b8;
+
+margin-top:10px;
+
+}
+
+
+
+.statValue{
+
+font-size:26px;
+
+font-weight:800;
+
+margin-top:5px;
+
+color:#22c55e;
+
+}
+
+
+
+
+
+/* ACTION */
+
+
+.sectionTitle{
+
+font-size:20px;
+
+font-weight:700;
+
+margin:25px 0 15px;
+
+}
+
+
+
+.action{
+
+background:#111827;
+
+padding:18px;
+
+border-radius:18px;
+
+display:flex;
+
+align-items:center;
+
+gap:15px;
+
+margin-bottom:12px;
+
+border:1px solid #ffffff12;
+
+cursor:pointer;
+
+transition:.2s;
+
+}
+
+
+
+.action:active{
+
+transform:scale(.97);
+
+}
+
+
+
+.actionIcon{
+
+width:50px;
+
+height:50px;
+
+border-radius:15px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+font-size:25px;
+
+background:#22c55e;
+
+color:#000;
+
+}
+
+
+
+.action h3{
+
+font-size:16px;
+
+}
+
+
+
+.action p{
+
+font-size:12px;
+
+color:#94a3b8;
+
+margin-top:3px;
+
+}
+
+
+
+
 
 </style>
+
+
 </head>
+
+
 
 <body>
 
-<div class="splash">
-  <div class="logo">🚀 Premium App</div>
-  <div class="tagline">Loading secure experience...</div>
-  <div class="loader"></div>
+
+<div class="app">
+
+
+
+<div class="header">
+
+<h1>
+🎮 BGMI ADMIN
+</h1>
+
+<p>
+Tournament Management Dashboard
+</p>
+
+</div>
+
+
+
+
+
+<div class="stats">
+
+
+
+<div class="statCard">
+
+<div class="icon">
+👥
+</div>
+
+<div class="statTitle">
+Total Users
+</div>
+
+<div class="statValue"
+id="totalUsers">
+0
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="statCard">
+
+<div class="icon">
+🔥
+</div>
+
+<div class="statTitle">
+Live Tournament
+</div>
+
+<div class="statValue"
+id="liveTournament">
+0
+</div>
+
+
+</div>
+
+
+
+
+
+
+<div class="statCard">
+
+<div class="icon">
+🎮
+</div>
+
+<div class="statTitle">
+Upcoming Tournament
+</div>
+
+<div class="statValue"
+id="upcomingTournament">
+0
+</div>
+
+
+</div>
+
+
+
+
+
+
+<div class="statCard">
+
+<div class="icon">
+⏳
+</div>
+
+<div class="statTitle">
+Pending Request
+</div>
+
+<div class="statValue"
+id="pendingRequest">
+0
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="statCard"
+style="grid-column:span 2;">
+
+
+<div class="icon">
+💰
+</div>
+
+<div class="statTitle">
+Wallet Revenue
+</div>
+
+<div class="statValue"
+id="walletRevenue">
+
+₹0
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+<div class="sectionTitle">
+Admin Actions
+</div>
+
+
+
+
+
+<div class="action"
+onclick="location.href='admin-tournaments.html'">
+
+
+<div class="actionIcon">
+🏆
+</div>
+
+
+<div>
+
+<h3>
+Manage Tournament
+</h3>
+
+<p>
+Edit, update and control matches
+</p>
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="action"
+onclick="location.href='admin-create-tournament.html'">
+
+
+<div class="actionIcon">
+➕
+</div>
+
+
+<div>
+
+<h3>
+Create Tournament
+</h3>
+
+<p>
+Create new BGMI matches
+</p>
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="action"
+onclick="location.href='admin-wallet-request.html'">
+
+
+<div class="actionIcon">
+💳
+</div>
+
+
+<div>
+
+<h3>
+Wallet Request
+</h3>
+
+<p>
+Approve deposit and withdraw
+</p>
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="action"
+onclick="location.href='admin-payment.html'">
+
+
+<div class="actionIcon">
+📱
+</div>
+
+
+<div>
+
+<h3>
+Payment Settings
+</h3>
+
+<p>
+UPI ID and QR management
+</p>
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="action"
+onclick="location.href='admin-users.html'">
+
+
+<div class="actionIcon">
+👤
+</div>
+
+
+<div>
+
+<h3>
+Manage Users
+</h3>
+
+<p>
+Block, delete and wallet control
+</p>
+
+</div>
+
+
+</div>
+
+
+
+
+
+
 </div>
 
 <script type="module">
 
-import { initializeApp } from 
-"https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 
-import { getAuth, onAuthStateChanged } 
+
+import {
+
+getAuth,
+onAuthStateChanged
+
+}
 from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-/* 🔑 Firebase Config */
+
+import {
+
+getDatabase,
+ref,
+onValue
+
+}
+from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+
+
+/* FIREBASE CONFIG */
+
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDsJUtZdIXcsB0w_2MQhMBXxIgbI3ijOvg",
-  authDomain: "incoinpaysliveearning.firebaseapp.com",
-  databaseURL: "https://incoinpaysliveearning-default-rtdb.firebaseio.com",
-  projectId: "incoinpaysliveearning",
-  storageBucket: "incoinpaysliveearning.firebasestorage.app",
-  messagingSenderId: "971873814750",
-  appId: "1:971873814750:web:7418c7da119e4725ed9a4f"
+
+
+apiKey:"AIzaSyDsJUtZdIXcsB0w_2MQhMBXxIgbI3ijOvg",
+
+authDomain:"incoinpaysliveearning.firebaseapp.com",
+
+databaseURL:"https://incoinpaysliveearning-default-rtdb.firebaseio.com",
+
+projectId:"incoinpaysliveearning",
+
+storageBucket:"incoinpaysliveearning.firebasestorage.app",
+
+messagingSenderId:"971873814750",
+
+appId:"1:971873814750:web:7418c7da119e4725ed9a4f"
+
+
 };
 
+
+
 const app = initializeApp(firebaseConfig);
+
+
 const auth = getAuth(app);
 
-/* 🔐 Check Login */
+
+const db = getDatabase(app);
+
+
+
+
+
+/* ADMIN UID */
+
+
+const ADMIN_UID = "VIAP56vYwndWPhJxktn0lRPTWnS2";
+
+
+
+
+
+/* ADMIN CHECK */
+
 
 onAuthStateChanged(auth,(user)=>{
 
-  setTimeout(()=>{
 
-    if(user){
-      window.location.href="dashboard.html";
-    }else{
-      window.location.href="login.html";
-    }
+if(!user){
 
-  },1500); // Splash delay
+
+location.replace("admin.html");
+
+
+return;
+
+
+}
+
+
+
+if(user.uid !== ADMIN_UID){
+
+
+alert("Access Denied");
+
+
+location.replace("index.html");
+
+
+return;
+
+
+}
+
+
+
+
+loadDashboard();
+
+
 
 });
 
+
+
+
+
+
+
+
+/* LOAD DASHBOARD DATA */
+
+
+function loadDashboard(){
+
+
+
+/*
+
+TOTAL USERS
+
+users
+ |
+ uid
+
+*/
+
+
+
+onValue(ref(db,"users"),(snap)=>{
+
+
+let total=0;
+
+
+
+snap.forEach(()=>{
+
+
+total++;
+
+
+});
+
+
+
+document.getElementById("totalUsers").innerHTML=total;
+
+
+
+});
+
+
+
+
+
+
+
+
+
+/*
+
+TOURNAMENT COUNT
+
+matches
+
+*/
+
+
+onValue(ref(db,"matches"),(snap)=>{
+
+
+let live=0;
+
+let upcoming=0;
+
+
+
+const now=Date.now();
+
+
+
+
+snap.forEach((item)=>{
+
+
+const data=item.val();
+
+
+
+if(data.status==="live"){
+
+
+live++;
+
+
+}
+
+
+
+
+
+if(data.status==="upcoming"){
+
+
+upcoming++;
+
+
+}
+
+
+
+});
+
+
+
+document.getElementById("liveTournament").innerHTML=live;
+
+
+document.getElementById("upcomingTournament").innerHTML=upcoming;
+
+
+
+});
+
+
+
+
+
+
+
+
+
+
+
+/*
+
+WALLET REQUEST
+
+depositRequests
+withdrawRequests
+
+*/
+
+
+onValue(ref(db,"depositRequests"),(snap1)=>{
+
+
+let pending=0;
+
+
+
+snap1.forEach((item)=>{
+
+
+if(item.val().status==="pending"){
+
+
+pending++;
+
+
+}
+
+
+
+});
+
+
+
+onValue(ref(db,"withdrawRequests"),(snap2)=>{
+
+
+snap2.forEach((item)=>{
+
+
+if(item.val().status==="pending"){
+
+
+pending++;
+
+
+}
+
+
+
+});
+
+
+
+
+
+document.getElementById("pendingRequest").innerHTML=pending;
+
+
+
+});
+
+
+
+});
+
+
+
+
+
+
+
+
+
+/*
+
+REVENUE
+
+transactions
+
+*/
+
+
+onValue(ref(db,"users"),(snap)=>{
+
+
+let revenue=0;
+
+
+
+snap.forEach((user)=>{
+
+
+const data=user.val();
+
+
+
+if(data.transactions){
+
+
+
+Object.values(data.transactions)
+.forEach((tx)=>{
+
+
+if(tx.type==="debit"){
+
+
+revenue += Number(tx.amount || 0);
+
+
+}
+
+
+
+});
+
+
+
+}
+
+
+
+});
+
+
+
+
+
+document.getElementById("walletRevenue").innerHTML=
+
+"₹"+Math.floor(revenue);
+
+
+
+});
+
+
+
+
+
+}
+
+
+
+
 </script>
 
+
+
 </body>
+
 </html>
