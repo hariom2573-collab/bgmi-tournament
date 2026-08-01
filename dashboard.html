@@ -1,398 +1,1994 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Premium Dashboard</title>
+<html lang="en">
 
-<link rel="manifest" href="manifest.json">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+
+<meta name="theme-color" content="#050B18">
+
+<title>BGMI ESPORTS</title>
+
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
 
 <style>
 
-/* ===============================
-   🔥 GLOBAL STYLE
-================================ */
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Poppins,sans-serif;
+-webkit-tap-highlight-color:transparent;
+}
+
 
 body{
-  margin:0;
-  font-family:Arial, sans-serif;
-  background:linear-gradient(180deg,#020617,#0f172a);
-  color:white;
-  overflow-x:hidden;
+
+background:#050B18;
+color:white;
+overflow-x:hidden;
+
 }
 
-/* ===============================
-   🚀 SPLASH SCREEN
-================================ */
 
-#splash{
-  position:fixed;
-  width:100%;
-  height:100%;
-  background:#020617;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  font-size:22px;
-  font-weight:bold;
-  color:#22c55e;
-  z-index:9999;
+body::before{
+
+content:"";
+
+position:fixed;
+
+inset:0;
+
+background:
+
+radial-gradient(circle at top left,
+rgba(34,197,94,.20),
+transparent 35%),
+
+
+radial-gradient(circle at top right,
+rgba(37,99,235,.20),
+transparent 35%),
+
+
+#050B18;
+
+z-index:-1;
+
 }
 
-/* ===============================
-   🔄 LOADING OVERLAY
-================================ */
 
-#loading{
-  position:fixed;
-  width:100%;
-  height:100%;
-  background:rgba(0,0,0,.6);
-  display:none;
-  justify-content:center;
-  align-items:center;
-  z-index:999;
+
+.app{
+
+width:100%;
+max-width:500px;
+margin:auto;
+
+padding-bottom:100px;
+
 }
 
-.loader{
-  border:4px solid #1e293b;
-  border-top:4px solid #22c55e;
-  border-radius:50%;
-  width:40px;
-  height:40px;
-  animation:spin 1s linear infinite;
+
+
+
+/* HEADER */
+
+
+.header{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+padding:18px;
+
 }
 
-@keyframes spin{
-  0%{transform:rotate(0)}
-  100%{transform:rotate(360deg)}
+
+
+
+.userBox{
+
+display:flex;
+
+align-items:center;
+
 }
 
-/* ===============================
-   📢 BROADCAST BAR
-================================ */
 
-.broadcast{
-  display:none;
-  padding:12px;
-  text-align:center;
-  font-size:13px;
-  font-weight:bold;
-  animation:slideDown .4s ease;
+
+.userInfo h2{
+
+font-size:22px;
+
+font-weight:800;
+
 }
 
-.broadcast.normal{
-  background:#1e293b;
-  color:#22c55e;
+
+
+.userInfo p{
+
+font-size:12px;
+
+color:#94a3b8;
+
 }
 
-.broadcast.maintenance{
-  background:#7f1d1d;
-  color:#fff;
+
+
+
+.walletBox{
+
+
+background:#111827;
+
+padding:10px 18px;
+
+border-radius:25px;
+
+border:1px solid rgba(255,255,255,.1);
+
+color:#22c55e;
+
+font-weight:800;
+
 }
 
-@keyframes slideDown{
-  from{transform:translateY(-20px);opacity:0;}
-  to{transform:translateY(0);opacity:1;}
+
+
+
+
+
+/* CATEGORY */
+
+
+.categoryBar{
+
+display:flex;
+
+gap:10px;
+
+padding:0 18px 18px;
+
+overflow-x:auto;
+
 }
 
-/* ===============================
-   💰 WALLET CARDS
-================================ */
 
-.cards{
-  padding:15px;
-  padding-bottom:90px;
+.categoryBar::-webkit-scrollbar{
+
+display:none;
+
 }
 
-.card{
-  background:rgba(255,255,255,0.05);
-  backdrop-filter:blur(10px);
-  padding:20px;
-  border-radius:18px;
-  margin-bottom:15px;
-  box-shadow:0 0 20px rgba(34,197,94,0.2);
-  transition:.3s;
+
+
+.categoryBtn{
+
+
+padding:10px 20px;
+
+border:none;
+
+border-radius:30px;
+
+background:#111827;
+
+color:white;
+
+font-weight:700;
+
 }
 
-.card:hover{
-  transform:translateY(-4px);
+
+
+.categoryBtn.active{
+
+
+background:#22c55e;
+
+color:#000;
+
 }
 
-.wallet-card{
-  border:1px solid #22c55e;
+
+
+
+
+.sectionTitle{
+
+padding:0 18px;
+
+font-size:22px;
+
+margin-bottom:10px;
+
 }
 
-.card-title{
-  font-size:13px;
-  opacity:.7;
+
+
+
+
+/* MATCH CARD */
+
+
+.match-card{
+
+
+margin:18px;
+
+background:#111827;
+
+border-radius:22px;
+
+overflow:hidden;
+
+border:1px solid rgba(255,255,255,.08);
+
+
 }
 
-.amount{
-  font-size:24px;
-  font-weight:bold;
-  margin-top:5px;
+
+
+.match-image{
+
+
+height:190px;
+
+position:relative;
+
+
 }
 
-/* ===============================
-   👑 PREMIUM BADGE
-================================ */
 
-.badge{
-  background:gold;
-  color:black;
-  font-size:10px;
-  padding:3px 8px;
-  border-radius:20px;
-  font-weight:bold;
-  display:none;
-  animation:glow 1.5s infinite alternate;
+
+.match-image img{
+
+
+width:100%;
+
+height:100%;
+
+object-fit:cover;
+
+
 }
 
-@keyframes glow{
-  from{box-shadow:0 0 5px gold;}
-  to{box-shadow:0 0 15px gold;}
+
+
+
+.mode{
+
+
+position:absolute;
+
+top:12px;
+
+left:12px;
+
+
+background:#22c55e;
+
+color:#000;
+
+padding:6px 14px;
+
+border-radius:20px;
+
+font-size:12px;
+
+font-weight:800;
+
 }
 
-/* ===============================
-   🔥 BOTTOM NAVIGATION
-================================ */
 
-.bottom-nav{
-  position:fixed;
-  bottom:0;
-  width:100%;
-  background:#0f172a;
-  display:flex;
-  justify-content:space-around;
-  padding:12px 0;
-  border-top:1px solid #1e293b;
+
+.status{
+
+
+position:absolute;
+
+top:12px;
+
+right:12px;
+
+
+background:#0009;
+
+padding:6px 12px;
+
+border-radius:20px;
+
+font-size:12px;
+
+
 }
 
-.nav-btn{
-  color:#64748b;
-  font-size:12px;
-  text-align:center;
-  cursor:pointer;
-  transition:.3s;
-  position:relative;
+
+
+
+.overlay{
+
+
+position:absolute;
+
+bottom:0;
+
+left:0;
+
+right:0;
+
+
+padding:18px;
+
+
+background:linear-gradient(
+transparent,
+#000
+);
+
+
 }
 
-.nav-btn.active{
-  color:#22c55e;
-  transform:scale(1.1);
+
+
+.overlay h1{
+
+font-size:22px;
+
 }
 
-.nav-btn.active::after{
-  content:"";
-  position:absolute;
-  bottom:-6px;
-  left:50%;
-  transform:translateX(-50%);
-  width:20px;
-  height:3px;
-  background:#22c55e;
-  border-radius:5px;
+
+
+.overlay p{
+
+color:#cbd5e1;
+
+font-size:13px;
+
 }
+
+
+
+
+
+.match-info{
+
+
+display:flex;
+
+padding:18px;
+
+}
+
+
+
+.info-box{
+
+
+flex:1;
+
+text-align:center;
+
+
+}
+
+
+
+.info-box span{
+
+
+font-size:11px;
+
+color:#94a3b8;
+
+
+}
+
+
+
+.info-box h2{
+
+
+margin-top:5px;
+
+font-size:19px;
+
+color:#22c55e;
+
+
+}
+
+
+
+
+
+.progress{
+
+
+height:8px;
+
+background:#1f2937;
+
+margin:0 18px 18px;
+
+border-radius:20px;
+
+overflow:hidden;
+
+
+}
+
+
+
+.progress-fill{
+
+
+height:100%;
+
+background:#22c55e;
+
+
+}
+
+
+
+/* BOTTOM NAV */
+
+
+.bottomNav{
+
+
+position:fixed;
+
+bottom:0;
+
+left:0;
+
+right:0;
+
+height:75px;
+
+
+max-width:500px;
+
+margin:auto;
+
+
+background:#111827;
+
+
+border-top:1px solid rgba(255,255,255,.1);
+
+
+display:flex;
+
+justify-content:space-around;
+
+align-items:center;
+
+
+z-index:999;
+
+
+}
+
+
+
+
+.navBtn{
+
+
+flex:1;
+
+height:100%;
+
+
+background:none;
+
+border:none;
+
+
+color:#94a3b8;
+
+font-size:12px;
+
+font-weight:700;
+
+
+}
+
+
+
+
+.navBtn span{
+
+
+display:block;
+
+font-size:24px;
+
+margin-bottom:3px;
+
+
+}
+
+
+
+.navBtn.active{
+
+
+color:#22c55e;
+
+
+}
+.bgImage{
+
+position:fixed;
+inset:0;
+
+background-image:url("https://images.pexels.com/photos/17681813/pexels-photo-17681813.jpeg");
+
+background-size:cover;
+background-position:center;
+
+opacity:0.20;
+
+z-index:-2;
+
+}
+
+
+.bgOverlay{
+
+position:fixed;
+inset:0;
+
+background:rgba(5,11,24,0.85);
+
+z-index:-1;
+
+}
+
 
 </style>
+
+
 </head>
+
 
 <body>
 
-<div id="splash">🚀 Loading App...</div>
-<div id="loading"><div class="loader"></div></div>
+<div class="bgImage"></div>
+<div class="bgOverlay"></div>
 
-<div class="broadcast" id="broadcastBox"></div>
 
-<div class="cards">
+<div class="app">
 
-  <div class="card wallet-card">
-    <div class="card-title">Wallet Balance</div>
-    <div class="amount" id="walletAmount">₹ 0</div>
-    <span class="badge" id="premiumBadge">PREMIUM</span>
-  </div>
 
-  <div class="card">
-    <div class="card-title">Bonus Balance</div>
-    <div class="amount" id="bonusAmount">₹ 0</div>
-  </div>
 
-  <div class="card">
-    <div class="card-title">Withdrawable Balance</div>
-    <div class="amount" id="withdrawAmount">₹ 0</div>
-  </div>
+<!-- HEADER -->
+
+
+<div class="header">
+
+
+<div class="userBox">
+
+
+<div class="userInfo">
+
+
+<h2 id="playerName">
+
+Loading...
+
+</h2>
+
+
+<p>
+
+BGMI Player
+
+</p>
+
 
 </div>
 
-<div class="bottom-nav">
-  <div class="nav-btn active" onclick="goPage('dashboard.html',this)">🏠<br>Home</div>
-  <div class="nav-btn" onclick="goPage('wallet.html',this)">💰<br>Wallet</div>
-  <div class="nav-btn" onclick="goPage('profile.html',this)">👤<br>Profile</div>
+
 </div>
+
+
+
+
+<div class="walletBox">
+
+₹<span id="walletAmount">
+
+0
+
+</span>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<!-- CATEGORY -->
+
+
+<div class="categoryBar">
+
+
+<button class="categoryBtn active">
+
+ALL
+
+</button>
+
+
+<button class="categoryBtn">
+
+SOLO
+
+</button>
+
+
+<button class="categoryBtn">
+
+DUO
+
+</button>
+
+
+<button class="categoryBtn">
+
+SQUAD
+
+</button>
+
+
+<button class="categoryBtn">
+
+TDM
+
+</button>
+
+
+</div>
+
+
+
+
+
+<h2 class="sectionTitle">
+
+🔥 Upcoming Matches
+
+</h2>
+
+
+
+<div id="matchesContainer">
+
+</div>
+
+
+
+</div>
+<!-- ==========================
+PART 2
+FIREBASE + USER + WALLET + MATCH LOAD
+========================== -->
+
 
 <script type="module">
 
-/* ===============================
-   🔥 FIREBASE IMPORTS
-================================ */
 
-import { initializeApp } from 
-"https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import {
 
-import { getDatabase, ref, onValue } 
-from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
-
-import { getAuth, onAuthStateChanged } 
-from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-
-import { getMessaging, getToken, onMessage } 
-from "https://www.gstatic.com/firebasejs/10.7.1/firebase-messaging.js";
-
-/* ===============================
-   🔑 FIREBASE CONFIG
-================================ */
-
-const firebaseConfig = {
-  apiKey: "AIzaSyDsJUtZdIXcsB0w_2MQhMBXxIgbI3ijOvg",
-  authDomain: "incoinpaysliveearning.firebaseapp.com",
-  databaseURL: "https://incoinpaysliveearning-default-rtdb.firebaseio.com",
-  projectId: "incoinpaysliveearning",
-  storageBucket: "incoinpaysliveearning.firebasestorage.app",
-  messagingSenderId: "971873814750",
-  appId: "1:971873814750:web:7418c7da119e4725ed9a4f"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
-const auth = getAuth(app);
-const messaging = getMessaging(app);
-
-/* ===============================
-   🔔 PUSH NOTIFICATION SYSTEM
-================================ */
-
-async function initPush() {
-
-  try {
-
-    const permission = await Notification.requestPermission();
-
-    if(permission !== "granted"){
-      console.log("Notification permission denied");
-      return;
-    }
-
-    const token = await getToken(messaging, {
-      vapidKey: "BOBXol2oluYC_itfEsmvhNh7P1VKIB1DmTC-E6lCnUHsueykBHBjIdyOE_AZGnXirxrA-9EKC65kwN3L4qOUQ7I"
-    });
-
-    console.log("FCM Token:", token);
-
-    onAuthStateChanged(auth,(user)=>{
-      if(user && token){
-        ref(db,"users/"+user.uid+"/fcmToken").set(token);
-      }
-    });
-
-  } catch(err){
-    console.log("Push Error:", err);
-  }
+initializeApp
 
 }
 
-onMessage(messaging,(payload)=>{
-  new Notification(payload.notification.title,{
-    body:payload.notification.body,
-    icon:"/icon.png"
-  });
-});
+from
 
-initPush();
+"https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 
-/* ===============================
-   👤 AUTH + WALLET DATA
-================================ */
 
-const walletEl=document.getElementById("walletAmount");
-const bonusEl=document.getElementById("bonusAmount");
-const withdrawEl=document.getElementById("withdrawAmount");
-const premiumBadge=document.getElementById("premiumBadge");
-const broadcastBox=document.getElementById("broadcastBox");
-const splash=document.getElementById("splash");
-const loading=document.getElementById("loading");
 
-setTimeout(()=>{ splash.style.display="none"; },1500);
+import {
+
+getAuth,
+
+onAuthStateChanged
+
+}
+
+from
+
+"https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+
+
+import {
+
+getDatabase,
+
+ref,
+
+onValue
+
+}
+
+from
+
+"https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+
+
+
+
+// FIREBASE CONFIG
+
+
+const firebaseConfig = {
+
+
+apiKey:"AIzaSyDsJUtZdIXcsB0w_2MQhMBXxIgbI3ijOvg",
+
+authDomain:"incoinpaysliveearning.firebaseapp.com",
+
+databaseURL:"https://incoinpaysliveearning-default-rtdb.firebaseio.com",
+
+projectId:"incoinpaysliveearning",
+
+storageBucket:"incoinpaysliveearning.firebasestorage.app",
+
+messagingSenderId:"971873814750",
+
+appId:"1:971873814750:web:7418c7da119e4725ed9a4f"
+
+
+};
+
+
+
+
+
+const app = initializeApp(firebaseConfig);
+
+
+const auth = getAuth(app);
+
+
+const db = getDatabase(app);
+
+
+
+window.auth = auth;
+
+window.db = db;
+
+
+
+
+
+let currentUID = "";
+
+
+
+
+
+// LOGIN CHECK FIX
+
 
 onAuthStateChanged(auth,(user)=>{
 
-  if(!user){
-    window.location.href="login.html";
-    return;
-  }
 
-  loading.style.display="flex";
+if(user){
 
-  onValue(ref(db,"users/"+user.uid),(snap)=>{
-    if(!snap.exists()) return;
 
-    const data=snap.val();
+currentUID = user.uid;
 
-    walletEl.innerText="₹ "+(data.wallet||0);
-    bonusEl.innerText="₹ "+(data.bonus||0);
-    withdrawEl.innerText="₹ "+(data.withdrawable||0);
 
-    if(data.premium===true){
-      premiumBadge.style.display="inline-block";
-    }
 
-    loading.style.display="none";
-  });
+console.log("LOGIN UID :",currentUID);
 
-});
 
-/* ===============================
-   📢 LIVE BROADCAST SYSTEM
-================================ */
 
-onValue(ref(db,"broadcast"),(snap)=>{
+loadUser(currentUID);
 
-  if(!snap.exists()) return;
 
-  const data=snap.val();
+loadMatches();
 
-  if(data.active===true){
 
-    broadcastBox.style.display="block";
-    broadcastBox.innerText=data.message||"";
 
-    broadcastBox.classList.remove("normal","maintenance");
-
-    if(data.type==="maintenance"){
-      broadcastBox.classList.add("maintenance");
-      document.body.innerHTML="<h2 style='text-align:center;margin-top:50%'>🚧 Maintenance Mode</h2>";
-    }else{
-      broadcastBox.classList.add("normal");
-    }
-
-  }else{
-    broadcastBox.style.display="none";
-  }
-
-});
-
-/* ===============================
-   🔥 NAVIGATION
-================================ */
-
-window.goPage=function(page,el){
-  document.querySelectorAll(".nav-btn").forEach(btn=>{
-    btn.classList.remove("active");
-  });
-  el.classList.add("active");
-  setTimeout(()=>{window.location.href=page},150);
 }
+
+else{
+
+
+setTimeout(()=>{
+
+
+if(!auth.currentUser){
+
+
+location.replace("index.html");
+
+
+}
+
+
+},3000);
+
+
+}
+
+
+
+});
+
+
+
+
+
+
+
+
+// LOAD USER NAME + WALLET
+
+
+function loadUser(uid){
+
+
+
+onValue(
+
+ref(db,"users/"+uid),
+
+(snapshot)=>{
+
+
+
+if(!snapshot.exists()){
+
+
+document.getElementById("playerName").innerHTML="Player";
+
+
+return;
+
+
+}
+
+
+
+const data = snapshot.val();
+
+
+
+
+
+document.getElementById("playerName").innerHTML =
+
+data.name || "Player";
+
+
+
+
+
+document.getElementById("walletAmount").innerHTML =
+
+Math.floor(data.wallet || 0);
+
+
+
+
+}
+
+
+
+);
+
+
+
+}
+
+
+
+
+
+
+
+
+
+// LOAD MATCHES
+
+
+function loadMatches(){
+
+
+
+onValue(
+
+ref(db,"matches"),
+
+(snapshot)=>{
+
+
+const box =
+document.getElementById("matchesContainer");
+
+
+
+box.innerHTML="";
+
+
+
+
+if(!snapshot.exists()){
+
+
+box.innerHTML=`
+
+<div style="
+padding:40px;
+text-align:center;
+color:#94a3b8">
+
+No Upcoming Matches
+
+</div>
+
+`;
+
+return;
+
+
+}
+
+
+
+
+
+snapshot.forEach((child)=>{
+
+
+
+const id = child.key;
+
+
+const match = child.val();
+
+
+
+let booked =
+
+Number(match.booked || 0);
+
+
+
+let total =
+
+Number(match.total || 25);
+
+
+
+let percent =
+
+(total>0)
+
+?
+
+(booked/total)*100
+
+:
+
+0;
+
+
+
+
+
+let timer="";
+
+
+
+if(match.date && match.time){
+
+
+let start = new Date(
+
+match.date+" "+match.time
+
+);
+
+
+let now = new Date();
+
+
+let diff = start-now;
+
+
+
+if(diff>0){
+
+
+let h=Math.floor(diff/3600000);
+
+
+let m=Math.floor(
+(diff%3600000)/60000
+);
+
+
+
+timer =
+"⏰ "+h+"h "+m+"m";
+
+
+}
+
+else{
+
+
+timer="Started";
+
+
+}
+
+
+}
+
+
+
+
+
+box.innerHTML +=`
+
+
+<div class="match-card"
+
+onclick="openMatch('${id}')">
+
+
+<div class="match-image">
+
+
+<img src="${
+match.image && match.image.includes('pexels.com/photo/')
+?
+'https://images.pexels.com/photos/'+match.image.split('-').pop().replace('/','')+'/pexels-photo-'+match.image.split('-').pop().replace('/','')+'.jpeg'
+:
+(match.image || 'https://via.placeholder.com/700x350')
+}">
+
+
+<span class="mode">
+
+${(match.type || "SQUAD").toUpperCase()}
+
+</span>
+
+
+
+<span class="status">
+
+${timer}
+
+</span>
+
+
+
+<div class="overlay">
+
+
+<h1>
+
+${match.title || "BGMI MATCH"}
+
+</h1>
+
+
+<p>
+
+${match.map || "Erangel"}
+
+</p>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="match-info">
+
+
+<div class="info-box">
+
+
+<span>
+
+PRIZE
+
+</span>
+
+
+<h2>
+
+₹${match.prize || 0}
+
+</h2>
+
+
+</div>
+
+
+
+
+
+<div class="info-box">
+
+
+<span>
+
+ENTRY
+
+</span>
+
+
+<h2>
+
+₹${match.entry || 0}
+
+</h2>
+
+
+</div>
+
+
+
+
+
+<div class="info-box">
+
+
+<span>
+
+SLOTS
+
+</span>
+
+
+<h2>
+
+${booked}/${total}
+
+</h2>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+<div class="progress">
+
+
+<div class="progress-fill"
+
+style="width:${percent}%">
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
+
+
+`;
+
+
+
+});
+
+
+
+}
+
+
+);
+
+
+
+}
+
+
+
+
+
+
+
+// OPEN MATCH
+
+
+window.openMatch=function(id){
+
+
+location.href="match.html?id="+id;
+
+
+};
+
+
+
+
+</script>
+<!-- ==========================
+PART 3
+MATCH LOAD + FILTER + BOTTOM NAV
+========================== -->
+
+
+<style>
+
+.bottomNav{
+
+position:fixed;
+
+bottom:0;
+left:0;
+right:0;
+
+height:75px;
+
+max-width:500px;
+
+margin:auto;
+
+background:#111827;
+
+border-top:1px solid #ffffff15;
+
+display:flex;
+
+justify-content:space-around;
+
+align-items:center;
+
+z-index:9999;
+
+}
+
+
+.navBtn{
+
+background:none;
+
+border:none;
+
+color:#94a3b8;
+
+font-size:12px;
+
+font-weight:700;
+
+height:70px;
+
+}
+
+
+.navBtn span{
+
+display:block;
+
+font-size:25px;
+
+margin-bottom:3px;
+
+}
+
+
+.navBtn.active{
+
+color:#22c55e;
+
+}
+
+
+.empty{
+
+text-align:center;
+
+padding:40px;
+
+color:#94a3b8;
+
+}
+
+
+</style>
+
+
+
+<script type="module">
+
+
+import {
+
+ref,
+onValue
+
+}
+
+from
+
+"https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+
+
+
+
+// MATCH LOAD
+
+
+function loadMatches(){
+
+
+const box=document.getElementById("matchesContainer");
+
+
+onValue(
+
+ref(window.db,"matches"),
+
+(snapshot)=>{
+
+
+box.innerHTML="";
+
+
+
+if(!snapshot.exists()){
+
+
+box.innerHTML=
+
+`
+<div class="empty">
+No Upcoming Matches
+</div>
+`;
+
+return;
+
+
+}
+
+
+
+
+snapshot.forEach((child)=>{
+
+
+let id=child.key;
+
+
+let match=child.val();
+
+
+
+let booked=Number(match.booked || 0);
+
+let total=Number(match.total || 25);
+
+
+let percent=
+
+(total>0)
+
+?
+
+(booked/total)*100
+
+:
+
+0;
+
+
+
+
+let time="";
+
+
+
+if(match.date && match.time){
+
+
+let start=new Date(
+match.date+" "+match.time
+);
+
+
+let diff=start-new Date();
+
+
+
+if(diff>0){
+
+
+let h=Math.floor(diff/3600000);
+
+
+let m=Math.floor(
+(diff%3600000)/60000
+);
+
+
+time="⏰ "+h+"h "+m+"m";
+
+
+}
+
+else{
+
+time="Started";
+
+}
+
+
+}
+
+
+
+
+box.innerHTML +=
+
+
+`
+
+<div class="match-card"
+onclick="openMatch('${id}')">
+
+
+<div class="match-image">
+
+
+<img src="${match.image || 
+'https://via.placeholder.com/700x350'}">
+
+
+<div class="mode">
+
+${(match.type || "SQUAD").toUpperCase()}
+
+</div>
+
+
+<div class="status">
+
+${time}
+
+</div>
+
+
+<div class="overlay">
+
+
+<h1>
+
+${match.title || "BGMI MATCH"}
+
+</h1>
+
+
+<p>
+
+${match.map || "Erangel"}
+
+</p>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="match-info">
+
+
+<div class="info-box">
+
+<span>
+PRIZE
+</span>
+
+<h2>
+₹${match.prize || 0}
+</h2>
+
+</div>
+
+
+
+<div class="info-box">
+
+<span>
+ENTRY
+</span>
+
+<h2>
+₹${match.entry || 0}
+</h2>
+
+</div>
+
+
+
+<div class="info-box">
+
+<span>
+SLOTS
+</span>
+
+<h2>
+${booked}/${total}
+</h2>
+
+</div>
+
+
+
+</div>
+
+
+
+
+<div class="progress">
+
+
+<div class="progress-fill"
+
+style="width:${percent}%">
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
+
+`;
+
+
+
+});
+
+
+
+});
+
+
+}
+
+
+
+
+loadMatches();
+
+
+
+
+
+
+// OPEN MATCH
+
+
+window.openMatch=function(id){
+
+
+location.href=
+"match.html?id="+id;
+
+
+};
+
+
+
+
+
+
+// FILTER
+
+
+window.filterMatches=function(type,btn){
+
+
+document.querySelectorAll(".categoryBtn")
+
+.forEach(b=>{
+
+b.classList.remove("active");
+
+});
+
+
+
+btn.classList.add("active");
+
+
+
+document.querySelectorAll(".match-card")
+
+.forEach(card=>{
+
+
+let mode=
+
+card.querySelector(".mode")
+.innerText
+.toLowerCase();
+
+
+
+if(type=="all" || mode==type){
+
+
+card.style.display="block";
+
+
+}
+
+else{
+
+
+card.style.display="none";
+
+
+}
+
+
+});
+
+
+};
+
+
+
+</script>
+
+
+
+
+
+<!-- BOTTOM NAV -->
+
+
+<div class="bottomNav">
+
+
+<button class="navBtn active"
+
+onclick="location.href='dashboard.html'">
+
+<span>🏠</span>
+
+Home
+
+</button>
+
+
+
+<button class="navBtn"
+
+onclick="location.href='matches.html'">
+
+<span>🎮</span>
+
+Matches
+
+</button>
+
+
+
+
+<button class="navBtn"
+
+onclick="location.href='wallet.html'">
+
+<span>💰</span>
+
+Wallet
+
+</button>
+
+
+
+<button class="navBtn"
+
+onclick="location.href='profile.html'">
+
+<span>👤</span>
+
+Profile
+
+</button>
+
+
+</div>
+<!-- ==========================
+LAST PART
+USER LIVE UPDATE + CATEGORY FIX
+========================== -->
+
+
+<script type="module">
+
+
+import {
+
+ref,
+onValue
+
+}
+
+from
+
+"https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+
+
+
+
+// WAIT FOR LOGIN USER
+
+
+function startUserData(){
+
+
+
+const user = window.auth.currentUser;
+
+
+
+if(!user){
+
+
+setTimeout(startUserData,500);
+
+return;
+
+
+}
+
+
+
+
+
+const uid=user.uid;
+
+
+
+
+// USER DATA LIVE
+
+
+
+onValue(
+
+ref(window.db,"users/"+uid),
+
+(snapshot)=>{
+
+
+if(!snapshot.exists()){
+
+
+document.getElementById("playerName").innerHTML="Player";
+
+
+return;
+
+
+}
+
+
+
+const data=snapshot.val();
+
+
+
+
+// NAME
+
+
+document.getElementById("playerName").innerHTML =
+
+data.name || "Player";
+
+
+
+
+// PHOTO
+
+
+if(data.photo){
+
+
+document.getElementById("profilePhoto").src=data.photo;
+
+
+}
+
+
+
+
+
+// WALLET
+
+
+let wallet=
+
+Number(data.wallet || 0);
+
+
+
+document.getElementById("walletAmount").innerHTML=
+
+Math.floor(wallet);
+
+
+
+});
+
+
+
+}
+
+
+
+
+
+startUserData();
+
+
+
+
+
+
+
+
+
+// CATEGORY BUTTON AUTO FILTER
+
+
+
+document.querySelectorAll(".categoryBtn")
+
+.forEach(btn=>{
+
+
+btn.onclick=function(){
+
+
+
+document.querySelectorAll(".categoryBtn")
+
+.forEach(b=>{
+
+b.classList.remove("active");
+
+});
+
+
+
+this.classList.add("active");
+
+
+
+let type=this.innerText.toLowerCase();
+
+
+
+
+document.querySelectorAll(".match-card")
+
+.forEach(card=>{
+
+
+let mode=
+
+card.querySelector(".mode")
+
+.innerText
+
+.toLowerCase();
+
+
+
+
+if(type=="all"){
+
+
+card.style.display="block";
+
+
+}
+
+else if(mode==type){
+
+
+card.style.display="block";
+
+
+}
+
+else{
+
+
+card.style.display="none";
+
+
+}
+
+
+
+});
+
+
+
+};
+
+
+
+});
+
+
+
+
+
 
 </script>
 
 </body>
+
 </html>
